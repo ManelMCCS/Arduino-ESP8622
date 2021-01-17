@@ -81,8 +81,8 @@ void loop()
   }
   else  if (perc < 66)
   {
-    digitalWrite(RL, HIGH);
-    digitalWrite(YL, LOW);
+    digitalWrite(RL, LOW);
+    digitalWrite(YL, HIGH);
     digitalWrite(GL, LOW);
   }
   else
