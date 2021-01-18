@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div id="Input de dados">
+  <h1>Monitor de capacidade</h1><BR><BR>
+  
+  <h3>Tamanho da sala: </h3>
+  <input type="text" placeholder="Tamanho da sala" id="tam">
+  <button type="button" onclick="SendValue('tam', 'TamSala')">Submeter</button><BR>
+ 
+  <h3>Pessoas por metro quadrado max: </h3>
+  <input type="text" placeholder="Pessoas por metro quadrado max" id="pm2_max">
+  <button type="button" onclick="SendValue('pm2_max', 'np');">Submeter</button><BR>
+</div>
+
+<div id="Tabela auxiliar">
+  
+  Muito afastado - 0.6 <BR>
+  Afastado - 0.6</h4> <BR>
+  Próximo - 0.6<BR>
+  Muito próximo - 0.6 <BR>
+  Afastado - 0.6h<BR><BR>
+
+</div>
+
+<div id="Output de dados de entrada">
+  
+  Tamanho da sala:<span id="tam_out">0</span><br>
+	Pessoas por metro quadrado (max): <span id="pm2_max_out">0</span><br>
+  Lotação (max): <span id="maxp">0</span> <br>
+
+</div>
+
+<div id="Output de dados atuais">
+
+  Pessoas por metro quadrado (atual): <span id="pm2_atual">0</span><br>
+  Lotação (atual): <span id="numb_out">NA</span> <span id="perc_out">0</span>% <br>
+
+</div>
+
+
+<br><br><a href="https://sigarra.up.pt/feup">sigarra.up.pt/feup</a>
+</body>
+</html>
+
+<script>
+
+function getValue(id)
+{
+  x = Number(document.getElementById(id).innerHTML);
+  alert(document.getElementById(id).innerHTML );
+  return x;
+}
+
+tam = getValue("tam");
+pm2 = getValue("pm2_max");
+
+maxp = tam*pm2;
+//LoadData(numb = xhttp.responseText, "numb");
+numb = "4";
+numb = Number("numb");
+
+//document.getElementById("maxp").innerHTML = maxp;
+
+function LoadData(cFunction, file) 
+{
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function()
+  {
+    if (this.readyState == 4 && this.status == 200)
+    cFunction(this);
+  }
+  xhttp.open("GET", file, true);
+  xhttp.send();
+}
+
+function SendValue(id, query)
+{
+  document.getElementById(id + "_out").innerHTML = getValue(id);
+  
+  var filename = id +"?" + query + "=" + getValue(id);
+  LoadData(document.getElementById(id).innerHTML = this.responseText, filename);
+}
+
+function refresh(max, tam)
+{
+
+  //LoadData(numb = xhttp.responseText, "numb");
+  numb = "4";
+  numb = Number("numb");
+  
+  document.getElementById("perc_out").innerHTML = numb/max;
+  dist_atual = tam/numb;
+
+}
+
+setInterval(refresh(maxp, tam), 2000); //2000mSeconds update rate
+
+</script>
+
