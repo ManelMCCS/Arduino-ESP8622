@@ -23,7 +23,7 @@ unsigned int n;
 unsigned int max;
 unsigned float perc;
 unsigned float dist;
-char dist_out[18];
+
 
 /*
 PT:
@@ -38,7 +38,37 @@ For practical reasons the result is rounded down by default.
 */
 int capacity(float room_size, float pm2) {return (int)room_size*pm2;}
 
+void LEDS(float perc)
+{
+  if (perc < 33)
+  {
+    digitalWrite(YL, LOW);
+    digitalWrite(GL, HIGH);
+  }
+  else  if (perc < 66)
+  {
+    digitalWrite(RL, HIGH);
+    digitalWrite(YL, LOW);
+    digitalWrite(GL, LOW);
+  }
+  else
+  {
+    digitalWrite(YL, LOW);
+    digitalWrite(GL, HIGH); 
+  }
+}
 
+void nHandler(int n) 
+{
+  server.send(200, "text/plane", String(n)); //Send ADC value only to client ajax request
+}
+
+float webInputHandler(String query)
+{
+  String str_value = server.arg(query); //Refer  xhttp.open("GET", id +"?q=" + getValue(id), true);
+  Serial.println(str_value);
+  if(t_state == "1")
+}
 
 void setup() 
 {
@@ -74,28 +104,7 @@ void loop()
   perc = (float)(n/max)*100;
   dist = n/room_size;
 
-  if (perc < 33)
-  {
-    digitalWrite(YL, LOW);
-    digitalWrite(GL, HIGH);
-  }
-  else  if (perc < 66)
-  {
-    digitalWrite(RL, LOW);
-    digitalWrite(YL, HIGH);
-    digitalWrite(GL, LOW);
-  }
-  else
-  {
-    digitalWrite(YL, LOW);
-    digitalWrite(GL, HIGH); 
-  }
+  LEDS(perc);
 
-  if (dist < muito_afastado) strcpy(dist_out, "Muito afastado\n");
-  else  if (dist < afastado) strcpy(dist_out, "Afastado\n");
-  else  if (dist < proximo) strcpy(dist_out, "Proximo\n");
-  else strcpy(dist_out, "Muito proximo\n");
-
-
-
+  server.on("/numb", percHandler(n));
 }
