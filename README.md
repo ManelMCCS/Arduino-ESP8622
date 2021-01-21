@@ -1,6 +1,7 @@
 #Comunicação WiFi recorrendo ao módulo ESP-01
 Introdução
 
+O objetivo deste projeto é a utilização de um micro-controlador com o módulo ES-01 para a partir de um browser ligado a uma rede WiFi poder controlar a ocupação por pessoas de um espaço, tendo em conta o número de pessoas por metro quadrado.
 O Módulo ESP8266 é um dispositivo IoT (Internet das Coisas) que consiste de um microprocessador de 32 bits com suporte embutido à rede WiFi e memória flash integrada. Essa arquitetura permite que ele possa ser programado de forma independente, sem a necessidade de outras placas como o Arduino, por exemplo.
 Neste caso O Módulo WiFi ESP8266 ESP-01 irá ser utilizado junto com a placa chipkit UNO 32 para agregar conexão sem fio à placa. O módulo tem suporte as redes WiFi 802.11 b/g/n e criptografia WPA e WPA2.
 
