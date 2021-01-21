@@ -5,39 +5,69 @@
 <div id="Input de dados">
   <h1>Monitor de capacidade</h1><BR><BR>
   
-  <h3>Tamanho da sala: </h3>
-  <input type="text" placeholder="Tamanho da sala" id="tam">
+  <h3>Tamanho da sala em m<sup>2</sup>: </h3>
+  <input type="text" placeholder="Exemplo: 15" id="tam">
   <button type="button" onclick="SendValue('tam', 'TamSala')">Submeter</button><BR>
  
-  <h3>Pessoas por metro quadrado max: </h3>
-  <input type="text" placeholder="Pessoas por metro quadrado max" id="pm2_max">
+  <h3>Pessoas por m<sup>2</sup>: </h3>
+  <input type="text" placeholder="Exemplo: 0.3" id="pm2_max">
   <button type="button" onclick="SendValue('pm2_max', 'np');">Submeter</button><BR>
 </div>
 
 <div id="Tabela auxiliar">
   
-  Muito afastado - 0.6 <BR>
-  Afastado - 0.6</h4> <BR>
-  Próximo - 0.6<BR>
-  Muito próximo - 0.6 <BR>
-  Afastado - 0.6h<BR><BR>
+  Muito afastado: <0.05 m<sup>2</sup> <BR>
+  Afastado: (0.05 - 0.6 )m<sup>2</sup> <BR>
+  Próximo: (0.6 - 1) m<sup>2</sup> <BR>
+  Muito próximo: >1 m<sup>2</sup> <BR><BR><BR><BR>
+
+</div>
+
+<div id="incrementar n de pessoas">
+  <button onclick="buttonClick('sum')">Entra uma pessoa</button>
+  <button onclick="buttonClick('sub')">Sai uma pessoa</button><br>
+  
 
 </div>
 
 <div id="Output de dados de entrada">
   
-  Tamanho da sala:<span id="tam_out">0</span><br>
-	Pessoas por metro quadrado (max): <span id="pm2_max_out">0</span><br>
-  Lotação (max): <span id="maxp">0</span> <br>
+  Lotação (atual):<output type="text" id="inc" value="0">0</output>
+  (<output type="text" id="perc" value="0">0</output>%)<br>
+  Tamanho da sala:<span id="tam_out">0</span> m<sup>2</sup> <br>
+	Pessoas por metro quadrado (max): <span id="pm2_max_out">0</span> m<sup>2</sup> <br>
+  Lotação (max): <output type="text" id="maxp" value="0">0</output> pessoas<br> 
 
 </div>
 
-<div id="Output de dados atuais">
+<script>
+  setInterval(refresh(), 2000);
+</script>
 
-  Pessoas por metro quadrado (atual): <span id="pm2_atual">0</span><br>
-  Lotação (atual): <span id="numb_out">NA</span> <span id="perc_out">0</span>% <br>
+<Script>
+  var n = 0;
+  var per = 0;
 
-</div>
+  function buttonClick(tipo) 
+  {
+    if(tipo == "sum")
+    {
+      var max = Number(document.getElementById('tam').value) * Number(document.getElementById('pm2_max').value);
+      document.getElementById('inc').value = ++n;
+      document.getElementById('perc').value = (n/max)*100;
+    }
+
+    if(tipo == "sub" && n > 0)
+    {
+      var max = Number(document.getElementById('tam').value) * Number(document.getElementById('pm2_max').value);
+      document.getElementById('inc').value = --n;
+      document.getElementById('perc').value = (n/max)*100;
+    }
+    
+
+  }
+
+</Script>
 
 
 <br><br><a href="https://sigarra.up.pt/feup">sigarra.up.pt/feup</a>
@@ -48,20 +78,14 @@
 
 function getValue(id)
 {
-  x = Number(document.getElementById(id).innerHTML);
-  alert(document.getElementById(id).innerHTML );
+  var x = document.getElementById(id).value;
+  document.getElementById(id).innerHTML = x;
   return x;
 }
 
 tam = getValue("tam");
 pm2 = getValue("pm2_max");
 
-maxp = tam*pm2;
-//LoadData(numb = xhttp.responseText, "numb");
-numb = "4";
-numb = Number("numb");
-
-//document.getElementById("maxp").innerHTML = maxp;
 
 function LoadData(cFunction, file) 
 {
@@ -79,23 +103,18 @@ function SendValue(id, query)
 {
   document.getElementById(id + "_out").innerHTML = getValue(id);
   
-  var filename = id +"?" + query + "=" + getValue(id);
-  LoadData(document.getElementById(id).innerHTML = this.responseText, filename);
-}
-
-function refresh(max, tam)
-{
-
-  //LoadData(numb = xhttp.responseText, "numb");
-  numb = "4";
-  numb = Number("numb");
+  console.log(document.getElementById('tam_out').value);
+  console.log(document.getElementById('pm2_max_out').value);
   
-  document.getElementById("perc_out").innerHTML = numb/max;
-  dist_atual = tam/numb;
-
+  document.getElementById('maxp').value = Number(document.getElementById('tam').value) * Number(document.getElementById('pm2_max').value);
+  
+  var filename = id +"?" + query + "=" + getValue(id);
+  LoadData(document.getElementById(id).innerHTML = this.responseText, filename); //envia dados para o ESP
 }
 
-setInterval(refresh(maxp, tam), 2000); //2000mSeconds update rate
+function refresh()
+{
+  LoadData(numb = xhttp.responseText, "numb"); //recebe dados do ESP
+}
 
 </script>
-
