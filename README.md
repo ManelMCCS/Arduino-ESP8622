@@ -1,6 +1,6 @@
-#Comunicação WiFi recorrendo ao módulo ESP-01
+# Comunicação WiFi recorrendo ao módulo ESP-01
 
-Introdução
+# Introdução
 
 O objetivo deste projeto é a utilização de um micro-controlador com o módulo ES-01 para a partir de um browser ligado a uma rede WiFi poder controlar a ocupação por pessoas de um espaço, tendo em conta o número de pessoas por metro quadrado.
 O Módulo ESP8266 é um dispositivo IoT (Internet das Coisas) que consiste de um microprocessador de 32 bits com suporte embutido à rede WiFi e memória flash integrada. Essa arquitetura permite que ele possa ser programado de forma independente, sem a necessidade de outras placas como o Arduino, por exemplo.
@@ -9,11 +9,11 @@ Neste caso O Módulo WiFi ESP8266 ESP-01 irá ser utilizado junto com a placa ch
 Modos de Operação ESP-01
 
 Existem dois principais modos de operação do ESP-01:
-Modo 1 – Comandos AT
+**Modo 1 – Comandos AT**
 No modo Comandos AT, o módulo possui instalado um programa chamado “Firmware Comandos AT”. Esse programa tem uma função pré-determinada que é receber comandos de operação via UART (pinos TX e RX). Nesse modo, o ESP-01 deverá trabalhar em conjunto com um microcontrolador. O microcontrolador será o responsável por enviar os comandos AT para o ESP-01. A placa Arduino possui um microcontrolador capaz de realizar esses comandos. O Firmware Comandos AT já vem instalado de fábrica podendo estar em diferentes versões, mas pode ser atualizado caso venha com uma versão antiga.
 Existem comandos específicos para cada tarefa do ESP-01. Por exemplo o comando AT+CWJAP_CUR é utilizado para conectar o módulo a uma rede WiFi. 
 
-Modo 2 – Standalone
+**Modo 2 – Standalone**
 No modo Standalone, o ESP-01 trabalha como um microcontrolador por si só, sem a necessidade de um microcontrolador externo. É possível assim utilizar as bibliotecas de WiFi para ESP8266 e desenvolver o software em cima delas, criar web servers e muito mais.
 Esse modo é muito utilizado com as placas de desenvolvimento como NodeMCU, pois possuem mais pinos tornando os projetos mais interessantes e livres para customizações. Mas nada impede de também utilizar com ESP-01.
 
