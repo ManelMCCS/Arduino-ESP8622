@@ -1,4 +1,5 @@
 #Comunicação WiFi recorrendo ao módulo ESP-01
+
 Introdução
 
 O objetivo deste projeto é a utilização de um micro-controlador com o módulo ES-01 para a partir de um browser ligado a uma rede WiFi poder controlar a ocupação por pessoas de um espaço, tendo em conta o número de pessoas por metro quadrado.
